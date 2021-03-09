@@ -87,7 +87,7 @@ class RepoMetadata:
         outmd = file(tmpfile, 'w')
         outmd.write(self.repoobj.dump_xml())
         outmd.close()
-        os.replace(tmpfile, self.repomdxml)
+        os.rename(tmpfile, self.repomdxml)
         print "Wrote:", self.repomdxml
 
     def _remove_repodata_file(self, repodata):
