@@ -81,9 +81,13 @@ class RepoMetadata:
 
     def _write_repomd(self):
         """ Write the updated repomd.xml. """
-        outmd = file(self.repomdxml, 'w')
+
+        # Atomically replace contents
+        tmpfile = os.path.join(self.repodir, ".repomd.xml.new")
+        outmd = file(tmpfile, 'w')
         outmd.write(self.repoobj.dump_xml())
         outmd.close()
+        os.rename(tmpfile, self.repomdxml)
         print "Wrote:", self.repomdxml
 
     def _remove_repodata_file(self, repodata):
